@@ -2,17 +2,21 @@
 
 namespace models
 {
-    public class Book : IManuscript
+    public class Book : Manuscript
     {
         public string Title { get; set; }   
         public string Author { get; set; }
         public string Text { get; set; }
 
-        public void Print()
+        public Book(IFormatter formatter) : base(formatter)
         {
-            Console.WriteLine("Title: {0}", Title);
-            Console.WriteLine("Author: {0}", Author);
-            Console.WriteLine("Text: {0}", Text);
+        }
+
+        public override void Print()
+        {
+            Console.WriteLine(formatter.Format("Title", Title));
+            Console.WriteLine(formatter.Format("Author", Author));
+            Console.WriteLine(formatter.Format("Text", Text));
             Console.WriteLine();
         }
     }

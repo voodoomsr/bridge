@@ -3,23 +3,23 @@ using System.Collections.Generic;
 
 namespace models
 {
-    public class FAQ : IManuscript
+    public class FAQ : Manuscript
     {
         public string Title { get; set; }
         public Dictionary<string, string> Questions { get; set; }
 
-        public FAQ()
+        public FAQ(IFormatter formatter) : base(formatter)
         {
             Questions = new Dictionary<string, string>();
         }
 
-        public void Print()
+        public override void Print()
         {
-            Console.WriteLine("Title: {0}", Title);
+            Console.WriteLine(formatter.Format("Title", Title));
             foreach (var question in Questions)
             {
-               Console.WriteLine(" Question: {0}", question.Key);
-               Console.WriteLine(" Answer: {0}", question.Value); 
+               Console.WriteLine(" " + formatter.Format("Question", question.Key));
+               Console.WriteLine(" " + formatter.Format("Answer", question.Value)); 
             }
             Console.WriteLine();
         }
